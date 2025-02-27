@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="min-h-screen bg-gray-900 text-white">
+    <div class="min-h-screen flex bg-gray-900 text-white">
+      <!-- Mobile Sidebar Toggle -->
+      <button
+        id="sidebarToggle"
+        class="fixed top-4 right-4 p-2 bg-gray-700 rounded-md md:hidden z-50"
+      >
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Sidebar -->
+      <div
+        id="sidebar"
+        class="w-72 p-4 bg-gray-800 border-r border-gray-700 flex flex-col fixed md:relative h-screen md:h-auto transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out z-40"
+      >
+        <!-- Profile Box -->
+        <div
+          class="flex items-center justify-between p-3 bg-gray-700 rounded-md mb-3"
+        >
+          <div class="flex items-center gap-3 w-full">
+            <img
+              id="userAvatar"
+              class="w-10 h-10 rounded-full border border-gray-500"
+              alt="avatar"
+            />
+            <div class="flex-1 min-w-0">
+              <p id="userId" class="text-sm font-bold truncate">Loading...</p>
+              <p class="text-xs text-green-400">Online</p>
+            </div>
+          </div>
+         
+        </div>
+
+        <h2 class="text-lg font-bold mb-2">Users in General</h2>
+        <div
+          id="usersContainer"
+          class="overflow-y-auto h-[calc(100vh-160px)] space-y-3 pr-2 scrollbar-hidden"
+        >
+          <!-- Users will be dynamically inserted here -->
+        </div>
+      </div>
+
+      <!-- Chat Container -->
+      <div class="flex flex-col flex-1 items-center justify-center p-6 md:p-4">
+        <div
+          class="w-full max-w-5xl bg-gray-800 border border-gray-700 rounded-md overflow-hidden h-[90vh] flex flex-col"
+        >
+          <!-- Chat Header -->
+          <div
+            class="flex items-center gap-3 p-4 bg-gray-700 border-b border-gray-600"
+          >
+            <img
+              src="tkj.jpg"
+              alt="Group Avatar"
+              class="w-10 h-10 rounded-full border border-gray-500"
+            />
+            <div class="flex-1 min-w-0">
+              <p class="font-bold truncate">RFD CHAT ROOM</p>
+            </div>
+          </div>
+
+          <!-- Messages Container -->
+          <div
+            id="messagesContainer"
+            class="flex-1 overflow-y-auto p-4 flex flex-col gap-2"
+          >
+            <p class="text-gray-500 text-center">No messages yet...</p>
+          </div>
+
+          <!-- Typing Indicator -->
+          <div
+            id="typingIndicator"
+            class="hidden flex items-center gap-2 p-2 bg-gray-700 rounded-lg self-start max-w-[80%] ml-4 mb-2"
+          >
+            <div class="flex space-x-1">
+              <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
+              <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
+              <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
+            </div>
+            <p class="text-sm text-gray-300" id="typingText"></p>
+          </div>
+
+          <!-- Chat Input Form -->
+          <form id="messageForm" class="flex items-center gap-2 p-4 border-t border-gray-700">
+            <div class="relative flex-1 flex items-center gap-2">
+              <button type="button" id="emojiButton" class="p-2 hover:bg-gray-700 rounded">
+                <i data-lucide="smile" class="w-5 h-5"></i>
+              </button>
+              <input type="text" id="messageInput"  class="w-full bg-gray-700 rounded-lg px-4 py-2" placeholder="Type a message..." autocomplete="off">
+              <div id="emojiPicker" class="animate-fade-up hidden absolute bottom-full left-0 mb-2 bg-gray-800 rounded-lg shadow-lg p-2 grid grid-cols-8 gap-1">
+                <!-- Emojis will be populated here -->
+              </div>
+              <button type="button" id="fileButton" class="p-2 hover:bg-gray-700 rounded">
+                <i data-lucide="image" class="w-5 h-5"></i>
+              </button>
+              <input type="file" id="fileInput" class="hidden" accept="image/*">
+            </div>
+            <button type="submit" class="p-2 bg-blue-500 rounded-lg hover:bg-blue-600">
+              <i data-lucide="send" class="w-5 h-5"></i>
+            </button>
+          </form>
+          
+
+      <!-- Profile Modal -->
+      <div
+        id="profileModal"
+        class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      >
+        <div class="bg-gray-800 rounded-lg p-6 max-w-6xl new-message">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold">User Profile</h2>
+            <button
+              id="closeProfileModal"
+              class="p-2 hover:bg-gray-700 rounded"
+            >
+              &times;
+            </button>
+          </div>
+          <div id="profileContent"></div>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  </body>
+</html>

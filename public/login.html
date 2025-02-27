@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div class="min-h-screen flex items-center justify-center px-4">
+      <div class="bg-gray-800 p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-center">
+          Welcome to TKJ Chat
+        </h1>
+        <form id="loginForm" class="space-y-4 sm:space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-2">Username</label>
+            <input
+              type="text"
+              id="username"
+              class="w-full p-2 sm:p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-blue-600 py-2 sm:py-3 rounded hover:bg-blue-700 transition-colors font-semibold"
+          >
+            Join Chat
+          </button>
+        </form>
+        <p class="mt-4 sm:mt-6 text-center text-sm text-gray-400">
+          Don't have an account?
+          <a
+            href="#"
+            id="showRegisterForm"
+            class="text-blue-500 hover:underline"
+            >Register</a
+          >
+        </p>
+      </div>
+    </div>
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("username").value.trim();
+        if (username) {
+          document.cookie = `username=${username};path=/`;
+          window.location.href = "/index.html";
+        }
+      });
+
+      document
+        .getElementById("showRegisterForm")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          alert("Register functionality is not implemented yet.");
+        });
+    </script>
+  </body>
+</html>
